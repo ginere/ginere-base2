@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+        
+<hibernate-mapping package="ep.triloedi.beans.tempHibernate">
+    <class name="DocumentSettings" table="TRIL_DOCUMENT_SETTINGS">
+    
+        <id name="documentId" column="DOCUMENT_ID" type="string">
+            <generator class="identity"/>
+        </id>
+        
+<!--         <composite-id name="id" class="DocumentSettingsPK"> -->
+<!--         	<key-property name="documentId" column="DOCUMENT_ID" type="string" /> -->
+<!--       		<key-property name="settingsName" column="SETTINGS_NAME" type="string" /> -->
+<!--         </composite-id> -->
+        
+        <set name="settings" table="TRIL_DOCUMENT_SETTINGS" lazy="false">
+            <key column="DOCUMENT_ID"  />
+<!--             <one-to-many class="DocumentSettings" /> -->
+			<composite-element class="Settings">
+				<property name="settingsName" column="SETTINGS_NAME" />
+            	<property name="settingsValue" column="SETTINGS_VALUE" />
+			</composite-element>
+        </set>
+        
+        
+<!--         <map name="settings" lazy="false"> -->
+<!-- 	    	<key column="DOCUMENT_ID" /> -->
+<!-- 	    	<map-key column="SETTINGS_NAME" type="string"/>	    	 -->
+<!-- 	    	<element column="SETTINGS_VALUE" type="string"/>	    	 -->
+<!-- 		</map>        -->
+        
+        <!-- TODO necessary to add more properties to the columns like length, not-null, etc -->
+        
+    </class>    
+</hibernate-mapping>
