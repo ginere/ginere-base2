@@ -26,7 +26,7 @@ public class GlobalProperties extends AsbtractGlobalProperties{
 			
 	static public String getStringValue(Class<?> c,
                                         String propertyName,
-                                        String defaultValue) {	
+                                        String defaultValue) {
 
 		return getValue(c,propertyName,defaultValue);
 	}
@@ -70,7 +70,7 @@ public class GlobalProperties extends AsbtractGlobalProperties{
 					return defaultValue;
 				}
 			}
-		} catch (Throwable e) {
+		} catch (Exception e) {
 			log.warn(String.format("getIntValue c:'%s' propertyName:'%s' defaultValue:'%s'", c, propertyName,
 					defaultValue), e);
 			return defaultValue;

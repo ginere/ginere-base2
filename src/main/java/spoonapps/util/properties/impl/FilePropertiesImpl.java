@@ -25,7 +25,7 @@ public class FilePropertiesImpl extends AbstractModule implements GlobalProperti
 	
 	public static final Logger log = LoggerFactory.getLogger(FilePropertiesImpl.class);
 
-	private static final String SVN_HEADER_STRING = "$Header: https://iptlss03.stib-mivb.be:444/svn/ECM/b2c-layer/wam_api/trunk/src/wamapi/d_web/config/ContextListener.java 642 2017-03-06 18:04:30Z mendogomeza $";
+	private static final String SVN_HEADER_STRING = "$Header$";
 
 	
 	private static final ConcurrentHashMap<String, String> EMPTY_MAP =new ConcurrentHashMap<String, String>(0);

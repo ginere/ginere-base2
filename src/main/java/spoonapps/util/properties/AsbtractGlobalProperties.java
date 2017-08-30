@@ -25,8 +25,42 @@ class AsbtractGlobalProperties{
 
 	private static final Map<String, String> cache = new ConcurrentHashMap<String, String>();
 	private static long lastModified=0;
+			
+	private static Map<Class<?>, PropertiesChangedListener> listeners = new ConcurrentHashMap<Class<?>, PropertiesChangedListener>();
+	
+	public static interface PropertiesChangedListener{
+		void propertiesChanged(long lastModifiedTime, Map<String, String> newCache);	
+	}
+
+	public static void addListener(PropertiesChangedListener listener, boolean callWhenAdded){
+		if (listener == null){
+			return ;
+		} else {
+			Class<?> clazz=listener.getClass();
+			if (!listeners.containsKey(clazz)){
+				listeners.put(clazz,listener);
+				
+				if (callWhenAdded){
+					callListener(listener,System.currentTimeMillis(),cache);
+				}
+			} else {
+				log.warn("Already added listener of type:"+clazz.getName());			}
+		}
+	}
 	
 
+	private static void callListener(PropertiesChangedListener listener,long lastModifiedTime, Map<String, String> newCache) {
+		try {
+			log.error("Calling listener:"+listener.getClass().getName());
+			long starttime=System.currentTimeMillis();
+			listener.propertiesChanged(lastModifiedTime,newCache);
+			log.error("Listener "+listener.getClass().getName()+" done in:"+(System.currentTimeMillis()-starttime));
+						
+		} catch (Exception e){
+			log.error("Calling listener:"+listener.getClass().getName(),e);
+		}			
+	}
+	
 	protected static RuntimeCheckResult check() {
 		RuntimeCheckResult ret=new RuntimeCheckResult(AsbtractGlobalProperties.class);
 		
@@ -97,11 +131,13 @@ class AsbtractGlobalProperties{
 						cache.putAll(newCache);
 						// sets the last modifications
 						lastModified=implLastModifiedTime;
+						
+						firePropertiesChangedEvent(implLastModifiedTime,newCache);
 					}
 				}
 			}catch(ApplicationException e){
 				log.warn("Error reloading GlobalPRoperties from miplementation:"+impl.getClass(),e);
-			}
+			}		
 		} 
 	}
 
@@ -118,6 +154,25 @@ class AsbtractGlobalProperties{
 //	}
 
 	
+
+	private static void firePropertiesChangedEvent(long LastModifiedTime, Map<String, String> newCache) {
+		log.warn("Foring properties changed listeners");
+		
+		Thread thread = new Thread(new Runnable() {
+			public void run() {
+				callListeners(LastModifiedTime,newCache);
+			}
+
+			private void callListeners(long lastModifiedTime, Map<String, String> newCache) {
+				for (PropertiesChangedListener listener:listeners.values()){
+					callListener(listener,lastModifiedTime,newCache);
+				}
+				
+			}
+		});
+		
+		thread.start();
+	}
 
 	private static String getValueInner(String propertyName) {
 		

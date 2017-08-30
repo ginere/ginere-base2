@@ -41,7 +41,22 @@ public class FileConfig extends AbstractModule {
 
 		
 	}
-	
+
+	public boolean addPathFromSystemProperty(String systemPropertyName){
+		if (StringUtils.isBlank(systemPropertyName)){
+			log.warn("The system property name is not defined:"+systemPropertyName);
+			return false;
+		} else {
+			String filePath=System.getProperty(systemPropertyName, null);
+			if (StringUtils.isBlank(filePath)){
+				log.warn("The system property name:"+systemPropertyName+" is not defined or have an empty value.");
+				return false;							
+			} else {
+				return addPath(filePath);
+			}
+        }	
+	}
+
 	public boolean addPath(String dirPath){
 		if (StringUtils.isBlank(dirPath)){
 			log.warn("The path passed is blank.");

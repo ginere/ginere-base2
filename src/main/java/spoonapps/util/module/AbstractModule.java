@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import spoonapps.util.runtimechecks.RuntimeCheckInterface;
 import spoonapps.util.runtimechecks.RuntimeCheckResult;
+import spoonapps.util.version.VersionUtils;
 
 /**
  * This is the moder class for al the modules that can be runtime checked and have version
@@ -53,20 +54,8 @@ public abstract class AbstractModule implements RuntimeCheckInterface{
 	 */
 	protected String getVersion(String svnHeaderString) {
 		if (StringUtils.isBlank(version)) {
-			if (svnHeaderString.contains("trunk")) {
-				version = "trunk";
-			} else if (svnHeaderString.contains("tags")) {
-				int index = svnHeaderString.lastIndexOf("tags");
-				String tmp = svnHeaderString.substring(index + "tags".length(), svnHeaderString.length());
-				String array[] = StringUtils.split(tmp, '/');
-				if (array.length > 0) {
-					version = array[0];
-				} else {
-					version = "unkownw-tag";
-				}
-			} else {
-				version = "unkownw";
-			}
+
+			version=VersionUtils.getVersion(getSvnHeaderString(),"trunk");
 		}
 
 		return version;
