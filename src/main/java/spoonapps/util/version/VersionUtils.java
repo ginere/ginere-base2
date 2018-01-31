@@ -25,4 +25,12 @@ public class VersionUtils {
             return defaultValue;
         }
 	}
+	
+	public static String getDate(String svnDateString) {
+		if (StringUtils.isBlank(svnDateString) || svnDateString.length()<17){
+			return svnDateString;
+		} else {
+			return svnDateString.substring(7,17);
+		}
+	}
 }
