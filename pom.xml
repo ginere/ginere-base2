@@ -95,6 +95,20 @@
 	  <version>${commons-codec.version}</version>
 	</dependency>
 
+	<!--  commons-configuration2 -->
+	<dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+      <version>1.9.3</version>
+	</dependency>
+
+	
+	<dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-configuration2</artifactId>
+      <version>2.2</version>
+	</dependency>
+
   </dependencies>
 
   <properties>
