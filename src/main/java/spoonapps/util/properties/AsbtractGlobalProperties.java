@@ -32,6 +32,11 @@ class AsbtractGlobalProperties{
 		void propertiesChanged(long lastModifiedTime, Map<String, String> newCache);	
 	}
 
+
+	public static GlobalPropertiesInterface getImplementation() {
+		return impl;
+	}
+	
 	public static void addListener(PropertiesChangedListener listener, boolean callWhenAdded){
 		if (listener == null){
 			return ;
@@ -108,11 +113,16 @@ class AsbtractGlobalProperties{
 //		}
 //	}
 	
+	public static long getLastModified() {
+		verifyPropertiesChanged();
+		
+		return impl.getLastModified();
+	}
 	
 	/**
 	 * Thread exclusion zone.
 	 */
-	private static void verifyPropertiesChanged() {
+	public static void verifyPropertiesChanged() {
 		
 		// ask the backend for the las time modification
 		long implLastModifiedTime=impl.getLastModified();
@@ -174,7 +184,7 @@ class AsbtractGlobalProperties{
 		thread.start();
 	}
 
-	private static String getValueInner(String propertyName) {
+	static String getValueInner(String propertyName) {
 		
 		// verify the properties chages before
 		verifyPropertiesChanged();

@@ -40,6 +40,11 @@ public class FilePropertiesImpl extends AbstractModule implements GlobalProperti
 		this.fildes=file;
 	}
 	
+
+	File getFildes() {
+		return fildes;
+	}
+	
 	public static FilePropertiesImpl getFromFile(File file) throws ApplicationException{
 		if (file==null){
             throw new ApplicationException("The file is null");
