@@ -61,7 +61,7 @@ public class Notify {
 	}
 
 	
-	public static void debug(String message,Exception e){
+	public static void debug(String message,Throwable e){
 		connector.notify(NotificationLevel.DEBUG,message,e);
 	}
 	
@@ -71,7 +71,7 @@ public class Notify {
 		connector.notify(NotificationLevel.DEBUG,message,null);
 	}
 
-	public static void debug(Logger log,String message,Exception e){
+	public static void debug(Logger log,String message,Throwable e){
 		log.debug(message,e);
 
 		connector.notify(NotificationLevel.DEBUG,message,e);
@@ -81,7 +81,7 @@ public class Notify {
 		connector.notify(NotificationLevel.INFO,message,null);
 	}
 
-	public static void info(String message,Exception e){
+	public static void info(String message,Throwable e){
 		connector.notify(NotificationLevel.INFO,message,e);
 	}
 
@@ -91,7 +91,7 @@ public class Notify {
 		connector.notify(NotificationLevel.INFO,message,null);
 	}
 
-	public static void info(Logger log,String message,Exception e){
+	public static void info(Logger log,String message,Throwable e){
 		log.info(message,e);
 
 		connector.notify(NotificationLevel.INFO,message,e);
@@ -101,7 +101,7 @@ public class Notify {
 		connector.notify(NotificationLevel.WARN,message,null);
 	}
 
-	public static void warn(String message,Exception e){
+	public static void warn(String message,Throwable e){
 		connector.notify(NotificationLevel.WARN,message,e);
 	}
 
@@ -111,7 +111,7 @@ public class Notify {
 		connector.notify(NotificationLevel.WARN,message,null);
 	}
 
-	public static void warn(Logger log,String message,Exception e){
+	public static void warn(Logger log,String message,Throwable e){
 		log.warn(message,e);
 
 		connector.notify(NotificationLevel.WARN,message,e);
@@ -121,7 +121,7 @@ public class Notify {
 		connector.notify(NotificationLevel.ERROR,message,null);
 	}
 
-	public static void error(String message,Exception e){
+	public static void error(String message,Throwable e){
 		connector.notify(NotificationLevel.ERROR,message,e);
 	}
 
@@ -131,7 +131,7 @@ public class Notify {
 		connector.notify(NotificationLevel.ERROR,message,null);
 	}
 
-	public static void error(Logger log,String message,Exception e){
+	public static void error(Logger log,String message,Throwable e){
 		log.error(message,e);
 
 		connector.notify(NotificationLevel.ERROR,message,e);
@@ -141,7 +141,7 @@ public class Notify {
 		connector.notify(NotificationLevel.FATAL,message,null);
 	}
 
-	public static void fatal(String message,Exception e){
+	public static void fatal(String message,Throwable e){
 		connector.notify(NotificationLevel.FATAL,message,e);
 	}
 
@@ -151,7 +151,7 @@ public class Notify {
 		connector.notify(NotificationLevel.FATAL,message,null);
 	}
 
-	public static void fatal(Logger log,String message,Exception e){
+	public static void fatal(Logger log,String message,Throwable e){
 		log.error(message,e);
 
 		connector.notify(NotificationLevel.FATAL,message,e);

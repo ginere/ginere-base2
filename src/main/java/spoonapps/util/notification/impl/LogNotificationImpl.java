@@ -44,7 +44,7 @@ public class LogNotificationImpl implements NotificationImplInterface{
 	}
 
 	@Override
-	public void notify(NotificationLevel level, String message, Exception e) {
+	public void notify(NotificationLevel level, String message, Throwable e) {
 		if (!isEnabled(level)){
 			return ;
 		} else {
