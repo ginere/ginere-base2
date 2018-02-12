@@ -8,7 +8,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import spoonapps.util.properties.impl.GlobalPropertiesInterface;
 import spoonapps.util.runtimechecks.RuntimeCheckResult;
 
 
@@ -43,12 +42,17 @@ public class GlobalProperties extends AsbtractGlobalProperties{
 	static public String[] getPropertyList(Class<?> c, String propertyName) {
 		try {
 			String value = getStringValue(c, propertyName,null);
-			String ret[] = StringUtils.split(value, ",");
 			
-			if (ret == null) {
+			if (StringUtils.isBlank(value)){
 				return ArrayUtils.EMPTY_STRING_ARRAY;
-			} else {				
-				return ret;
+			} else {
+				String ret[] = StringUtils.split(value, ",");
+				
+				if (ret == null) {
+					return ArrayUtils.EMPTY_STRING_ARRAY;
+				} else {				
+					return ret;
+				}
 			}
 		} catch (Exception e) {
 			log.warn("getPropertyList c:" + c +
@@ -57,6 +61,30 @@ public class GlobalProperties extends AsbtractGlobalProperties{
 			return ArrayUtils.EMPTY_STRING_ARRAY;
 		}
 	}
+
+	static public String[] getPropertyList(Class<?> c, String propertyName,String defaultValue[]) {
+		try {
+			String value = getStringValue(c, propertyName,null);
+			
+			if (StringUtils.isBlank(value)){
+				return defaultValue;
+			} else {
+				String ret[] = StringUtils.split(value, ",");
+				
+				if (ret == null) {
+					return defaultValue;
+				} else {				
+					return ret;
+				}
+			}
+		} catch (Exception e) {
+			log.warn("getPropertyList c:" + c +
+					 "' propertyName:'"+ propertyName +
+                     "'", e);
+			return ArrayUtils.EMPTY_STRING_ARRAY;
+		}
+	}
+
 
 	static public int getIntValue(Class<?> c, String propertyName, int defaultValue) {
 		try {
