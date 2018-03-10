@@ -1,6 +1,7 @@
 package spoonapps.util.properties.impl;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -62,7 +63,7 @@ public class FilePropertiesEditor extends AbstractModule {
 		}
 	}
 	
-	public Map<String,PropertyDefinition> getProperties() throws ApplicationException{
+	public Map<String,PropertyDefinition> getPropertyMap() throws ApplicationException{
 		PropertiesConfiguration config=getConfigurator();				
 		PropertiesConfigurationLayout layout = config.getLayout();
 				
@@ -77,6 +78,27 @@ public class FilePropertiesEditor extends AbstractModule {
 			PropertyDefinition prop=new PropertyDefinition(key, description, value);
 					
 			ret.put(key,prop);
+					
+		}
+				
+		return ret;
+	}
+	
+	public Collection<PropertyDefinition> getProperties() throws ApplicationException{
+		PropertiesConfiguration config=getConfigurator();				
+		PropertiesConfigurationLayout layout = config.getLayout();
+				
+		Iterator<String> keys = config.getKeys();
+		Collection <PropertyDefinition>ret=new ArrayList<PropertyDefinition>(config.size());
+				
+		while(keys.hasNext()){
+			String key=keys.next();
+			String value=config.getString(key);
+			String description=layout.getComment(key);
+					
+			PropertyDefinition prop=new PropertyDefinition(key, description, value);
+					
+			ret.add(prop);
 					
 		}
 				
