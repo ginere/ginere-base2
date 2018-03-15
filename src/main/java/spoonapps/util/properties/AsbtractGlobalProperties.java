@@ -56,10 +56,10 @@ class AsbtractGlobalProperties{
 
 	private static void callListener(PropertiesChangedListener listener,long lastModifiedTime, Map<String, String> newCache) {
 		try {
-			log.error("Calling listener:"+listener.getClass().getName());
+			log.info("Calling listener:"+listener.getClass().getName());
 			long starttime=System.currentTimeMillis();
 			listener.propertiesChanged(lastModifiedTime,newCache);
-			log.error("Listener "+listener.getClass().getName()+" done in:"+(System.currentTimeMillis()-starttime));
+			log.info("Listener "+listener.getClass().getName()+" done in:"+(System.currentTimeMillis()-starttime));
 						
 		} catch (Exception e){
 			log.error("Calling listener:"+listener.getClass().getName(),e);
@@ -166,7 +166,7 @@ class AsbtractGlobalProperties{
 	
 
 	private static void firePropertiesChangedEvent(long LastModifiedTime, Map<String, String> newCache) {
-		log.warn("Foring properties changed listeners");
+		log.warn("Firing properties changed listeners");
 		
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
