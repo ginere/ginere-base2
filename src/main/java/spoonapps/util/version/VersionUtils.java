@@ -10,8 +10,10 @@ public class VersionUtils {
 	 * @return the version
 	 */
 	public static String getVersion(String svnHeaderString,String defaultValue) {
-        if (svnHeaderString.contains("trunk")) {
-            return "trunk";
+		if (StringUtils.isBlank(svnHeaderString)){
+			return defaultValue;
+		} else if (svnHeaderString.contains("trunk")) {
+            return defaultValue;
         } else if (svnHeaderString.contains("tags")) {
             int index = svnHeaderString.lastIndexOf("tags");
             String tmp = svnHeaderString.substring(index + "tags".length(), svnHeaderString.length());
