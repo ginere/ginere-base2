@@ -61,17 +61,6 @@ public class Fileutils {
             }        	
         }
 	}
-
-//	public static File canReadDir(String dirPath) {
-//		if (StringUtils.isBlank(dirPath)) {
-//			log.warn("The directory passed is blank");
-//			return null;
-//		} else {
-//			File dir = new File(dirPath);
-//
-//			return canReadDir(dir);
-//		}
-//	}
 	
 	public static String canReadDir(File dir) {
         if (dir==null){
@@ -84,6 +73,39 @@ public class Fileutils {
                 return "The directory passed:"+dir.getAbsolutePath()+" is not a directory.";
         	} else if (!dir.canRead()){
                 return "The directory passed:"+dir.getAbsolutePath()+" can not be readed.";
+        	} else {
+                return null;
+            }        	
+        }
+	}
+	
+	public static String canReadFile(File file) {
+        if (file==null){
+            return "The file passed is null";
+        } else {
+        	
+        	if (!file.exists()){
+                return "The file passed:"+file.getAbsolutePath()+" does not exits.";
+        	} else if (!file.isFile()){
+                return "The file passed:"+file.getAbsolutePath()+" is not a file.";
+        	} else if (!file.canRead()){
+                return "The file passed:"+file.getAbsolutePath()+" can not be readed.";
+        	} else {
+                return null;
+            }        	
+        }
+	}
+
+	public static String canWriteFile(File file) {
+        if (file==null){
+            return "The file passed is null";
+        } else {        	
+        	if (!file.exists()){
+                return "The file passed:"+file.getAbsolutePath()+" does not exits.";
+        	} else if (!file.isFile()){
+                return "The file passed:"+file.getAbsolutePath()+" is not a file.";
+        	} else if (!file.canWrite()){
+                return "The file passed:"+file.getAbsolutePath()+" can not be written.";
         	} else {
                 return null;
             }        	
