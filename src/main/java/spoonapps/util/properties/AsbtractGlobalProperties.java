@@ -186,25 +186,16 @@ class AsbtractGlobalProperties{
 
 	static String getValueInner(String propertyName) {
 		
-		// verify the properties chages before
-		verifyPropertiesChanged();
-		synchronized (cache) {
-			if (cache.containsKey(propertyName)){
-				return cache.get(propertyName);
-			} else {
-				
-//				for (String name: cache.keySet()){
-//
-//		            String key =name.toString();
-//		            String value = cache.get(name).toString();  
-//		            log.error("++++++++++++ Abstract '"+key + "': '" + value+"'");  
-//
-//
-//				} 
-				return null;
+			// verify the properties chages before
+			verifyPropertiesChanged();
+			synchronized (cache) {
+				if (cache.containsKey(propertyName)){
+					return cache.get(propertyName);
+				} else {
+					return null;
+				}
 			}
 		}
-	}
 	
 	protected static String getValue(Class<?> section, String propertyName,String defaultValue) {
 		if (section == null || StringUtils.isBlank(propertyName)) {

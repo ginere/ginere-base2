@@ -48,6 +48,32 @@ public class SystemPropertiesManager extends AbstractModule{
         return System.setProperty(key, value);		
 	}
 
+	public String get(String key,String defaultValue) {
+		try {
+			String ret = System.getProperty(key);	
+	    
+			if (ret==null){
+				return defaultValue;
+			} else {
+				return ret;
+			}
+		}catch (Exception e) {
+			log.warn("Getting value for key:"+key,e);
+			return defaultValue;
+		}		
+	}
+
+	public boolean isProduction(){
+		String devMode=get("development-mode",null);
+		
+		if (devMode == null){
+			return true;
+		} else {
+			return false;
+		}		
+	}
+
+
     public long getLastModified() {
 		return lastModified;
 	}
